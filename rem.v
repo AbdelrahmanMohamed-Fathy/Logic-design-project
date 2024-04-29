@@ -5,6 +5,12 @@ module rem(
     output reg divbyzero
 );
 always@(*) begin
+
+
+    //! This is currently not scaleable
+    //TODO make this scaleable
+
+
     if (denominator[1:0]==2'b00) begin
         divbyzero=1;
         remainder[2] = numerator[2];
