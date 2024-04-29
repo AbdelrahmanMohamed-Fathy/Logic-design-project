@@ -33,7 +33,7 @@ initial begin
             if ( ( result[1:0] == temp[1:0] ) || ( (denominator == 3'b000 || denominator == 3'b100) && (divbyzeroflag == 1) && (result[2] == numerator[2]) ) )
                 $display("[PASS] numerator = %b , denominator = %b , result = %b , flag = %b",numerator,denominator,result,divbyzeroflag);
             else
-                $error("[FAIL] numerator = %b , denominator = %b , result = %b , expected result = %b , flag = %b",numerator,denominator,result[1:0],temp[1:0],divbyzeroflag);
+                $error("[FAIL] numerator = %b , denominator = %b , result = %b , expected result = %b , flag = %b",numerator,denominator,temp,divbyzeroflag);
         end
     end
 $finish;
