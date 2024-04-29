@@ -1,5 +1,5 @@
 `timescale 1ns/100ps
-module Add_tb;
+module add_tb;
 reg signed [2:0] A;
 reg signed [2:0] B;
 wire signed [3:0] C;
