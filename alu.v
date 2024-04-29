@@ -1,3 +1,3 @@
-module alu()
+module alu();
 
 endmodule
