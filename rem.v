@@ -22,9 +22,6 @@ always@(*) begin
             2'b11:  begin remainder[0] = denominator[1] && !denominator[0];   remainder[1] = 0;                                zero = !(denominator[1] && !denominator[0]);     end
             default:begin remainder[0] = 0;                                   remainder[1] = 0;                                zero = 1;                                        end
         endcase
-        if(remainder[1:0]==2'b00)begin
-            zero=1;
-        end
     end
     remainder[4] = numerator[2];
 end

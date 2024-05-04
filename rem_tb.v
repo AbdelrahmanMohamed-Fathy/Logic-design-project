@@ -1,9 +1,5 @@
 //command to test: vsim rem_tb -c -do "run -all"
 module rem_tb();
-
-`timescale 1ns/100ps
-
-
 reg [2:0] numerator;
 reg [2:0] denominator;
 wire [4:0] result;

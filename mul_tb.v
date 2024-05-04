@@ -1,4 +1,3 @@
-`timescale 1ns/100ps
 module mul_tb;
 reg[2:0] inputa;
 reg[2:0] inputb;

@@ -25,7 +25,7 @@ add_sub addition_subtraction(
     .zeroflag(addsubZeroFlag)
 );
 
-multi multiplication(
+mul multiplication(
     .a(num1),
     .b(num2),
     .product(mulResult),

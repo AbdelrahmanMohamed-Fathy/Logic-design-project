@@ -1,5 +1,4 @@
 //command to test: vsim add_sub_tb -c -do "run -all"
-`timescale 1ns/100ps
 module add_sub_tb();
 reg [2:0] num1;
 reg [2:0] num2;
