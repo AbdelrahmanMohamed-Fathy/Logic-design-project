@@ -46,16 +46,16 @@ initial begin
                 if(result==expectedResult && (zeroflag == !(expectedResult[3:0]))) begin
                     $display("[PASS] num1 = %b , num2 = %b , result = %b , zeroFlag = %b, operation = %b",num1,num2,result,zeroflag,selection);
                     if (selection)
-                        $fdisplay(subfile,"[PASS] num1 = %b , num2 = %b , result = %b , zeroFlag = %b",num1,num2,result,zeroflag);
+                        $fdisplay(subfile,"[PASS] num1 = %b , num2 = %b , result = %b , zeroFlag = %b, operation = %b",num1,num2,result,zeroflag,selection);
                     else
-                        $fdisplay(subfile,"[PASS] num1 = %b , num2 = %b , result = %b , zeroFlag = %b",num1,num2,result,zeroflag);
+                        $fdisplay(addfile,"[PASS] num1 = %b , num2 = %b , result = %b , zeroFlag = %b, operation = %b",num1,num2,result,zeroflag,selection);
                 end
                 else begin
                     $error("[FAIL] num1 = %b , num2 = %b , result = %b , expected result = %b , zeroFlag = %b, operation = %b",num1,num2,result,expectedResult,zeroflag,selection);
                     if (selection)
-                        $fdisplay(subfile,"[FAIL] num1 = %b , num2 = %b , result = %b , expected result = %b , zeroFlag = %b",num1,num2,result,expectedResult,zeroflag);
+                        $fdisplay(subfile,"[FAIL] num1 = %b , num2 = %b , result = %b , expected result = %b , zeroFlag = %b, operation = %b",num1,num2,result,expectedResult,zeroflag,selection);
                     else
-                        $fdisplay(subfile,"[FAIL] num1 = %b , num2 = %b , result = %b , expected result = %b , zeroFlag = %b",num1,num2,result,expectedResult,zeroflag);
+                        $fdisplay(addfile,"[FAIL] num1 = %b , num2 = %b , result = %b , expected result = %b , zeroFlag = %b, operation = %b",num1,num2,result,expectedResult,zeroflag,selection);
                 end
             end
         end

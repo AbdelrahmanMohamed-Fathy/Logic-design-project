@@ -9,7 +9,7 @@ module add_sub (
 reg [2:0]num;
 always @(*) begin
     result[4:0] = 5'b00000;
-    num[2:0] = num2[2:0];
+    num[1:0] = num2[1:0];
     if(selection)begin
         num[2] = !num2[2];
     end

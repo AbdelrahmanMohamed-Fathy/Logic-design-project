@@ -7,6 +7,7 @@ module rem_tb();
 reg [2:0] numerator;
 reg [2:0] denominator;
 wire [4:0] result;
+wire zeroFlag;
 wire divbyzeroflag;
 
 rem remainder_test
@@ -14,6 +15,7 @@ rem remainder_test
     .numerator(numerator),
     .denominator(denominator),
     .remainder(result),
+    .zero(zeroFlag),
     .divbyzero(divbyzeroflag)
 );
 integer file;
@@ -28,13 +30,13 @@ initial begin
             denominator=j;
             temp = numerator[1:0]%denominator[1:0];
             #100;
-            if ( ( result[1:0] == temp[1:0] ) || ( (denominator == 3'b000 || denominator == 3'b100) && (divbyzeroflag == 1) && (result[4] == numerator[2] ) ) ) begin
-                $display("[PASS] numerator = %b , denominator = %b , result = %b , flag = %b",numerator,denominator,result,divbyzeroflag);
-                $fdisplay(file,"[PASS] numerator = %b , denominator = %b , result = %b , flag = %b",numerator,denominator,result,divbyzeroflag);
+            if ( ( result[1:0] == temp[1:0] && zeroFlag == !(temp) ) || ( (denominator == 3'b000 || denominator == 3'b100) && (divbyzeroflag == 1) && (result[4] == numerator[2] ) )) begin
+                $display("[PASS] numerator = %b, denominator = %b, result = %b, zeroFlag = %b, divByZeroFlag = %b",numerator,denominator,result,zeroFlag,divbyzeroflag);
+                $fdisplay(file,"[PASS] numerator = %b, denominator = %b, result = %b, zeroFlag = %b, divByZeroFlag = %b",numerator,denominator,result,zeroFlag,divbyzeroflag);
             end
             else begin
-                $error("[FAIL] numerator = %b , denominator = %b , result = %b , expected result = %b , flag = %b",numerator,denominator,result,temp,divbyzeroflag);
-                $fdisplay(file,"[FAIL] numerator = %b , denominator = %b , result = %b , expected result = %b , flag = %b",numerator,denominator,result,temp,divbyzeroflag);
+                $error("[FAIL] numerator = %b, denominator = %b, result = %b, expected result = %b, zeroFlag = %b, divByZeroFlag = %b",numerator,denominator,result,temp,zeroFlag,divbyzeroflag);
+                $fdisplay(file,"[FAIL] numerator = %b, denominator = %b, result = %b, expected result = %b, zeroFlag = %b, divByZeroFlag = %b",numerator,denominator,result,temp,zeroFlag,divbyzeroflag);
             end
         end
     end
