@@ -1,11 +1,11 @@
 module multi(
     input [2:0] a,
     input [2:0] b,
-    output reg [1:0] sum1,
-    output reg [1:0] sum2, 
     output reg [4:0] product,
     output reg zeroFlag
 );
+reg [1:0] sum1;
+reg [1:0] sum2;
    always@(*) begin
         if(b[0]==1'b1) assign sum1=a[1:0];
         else assign sum1=2'b00;

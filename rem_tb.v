@@ -33,7 +33,7 @@ initial begin
                 $error("[FAIL] numerator = %b , denominator = %b , result = %b , expected result = %b , flag = %b",numerator,denominator,result,temp,divbyzeroflag);
         end
     end
-$finish();
+    $finish();
 end
 
 

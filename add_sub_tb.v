@@ -1,67 +1,51 @@
+//command to test: vsim add_sub_tb -c -do "run -all"
 `timescale 1ns/100ps
-module Add_tb;
+module add_sub_tb();
 reg [2:0] num1;
 reg [2:0] num2;
-wire [3:0] result;
+reg selection;
+wire [4:0] result;
 wire zeroflag;
 
-Add DUT
+add_sub DUT
 (
     .num1(num1),
     .num2(num2),
+    .selection(selection),
     .result(result),
     .zeroflag(zeroflag)
 );
-integer signed i;
-integer signed j;
-integer temp1;
-integer temp2;
-integer fd;
-integer signed c;
+integer i;
+integer j;
+integer sel;
+integer signed signed_i;
+integer signed signed_j;
+reg [4:0] expectedResult;
 initial begin
-    fd=$fopen("add.txt","w");
-    for(i=-3;i<=3;i=i+1) begin
-        for(j=-3;j<=3;j=j+1) begin
-            if(i<0)begin
-                temp1=16-i;
-                num1=temp1;
-                num1[2]=1;
-            end
-            else begin
+    for(sel=0;sel<=1;sel=sel+1) begin
+        for(i=0;i<=3'b111;i=i+1) begin
+            for(j=0;j<=3'b111;j=j+1) begin
                 num1=i;
-            end
-            if(j<0)begin
-                temp2=16-j;
-                num2=temp2;
-                num2[2]=1;
-            end
-            else begin
                 num2=j;
-            end
-            c=num1+num2;
-            #1000
-            $fdisplay(fd,"Testing Num1=%b and Num2=%b",num1,num2);
-            $display("Testing Num1=%b and Num2=%b",num1,num2);
-            if(c<0)begin
-                c=16-c;
-                c[3]=1;
-            end
-            if(result==c[3:0])begin
-                if(zeroflag==1)begin
-                    $fdisplay(fd,"%b + %b = %b       Zero Result",num1,num2,result);
-                    $display("%b + %b = %b       Zero Result",num1,num2,result);
-                end
-                else begin
-                    $fdisplay(fd,"%b + %b = %b",num1,num2,result);
-                    $display("%b + %b = %b",num1,num2,result); 
-                end
-            end
-            else begin
-                $error("Error in the result of addition of %b +%b !=%b %b",num1,num2,result,c[3:0]);
+                selection=sel;
+                #100
+                if(i[2]) signed_i = -1*i[1:0];
+                else signed_i = i[1:0];
+                if(j[2]) signed_j = -1*j[1:0];
+                else signed_j = j[1:0];
+                #100
+                if (selection) expectedResult = signed_i-signed_j;
+                else expectedResult = signed_i+signed_j;
+                #100
+                if(expectedResult[4]) expectedResult[3:0] = ~expectedResult[3:0]+1;
+                #100
+                if(result==expectedResult && (zeroflag == !(expectedResult[3:0])))
+                    $display("[PASS] num1 = %b , num2 = %b , result = %b , zeroFlag = %b, operation = %b",num1,num2,result,zeroflag,selection);
+                else
+                    $error("[FAIL] num1 = %b , num2 = %b , result = %b , expected result = %b , zeroFlag = %b, operation = %b",num1,num2,result,expectedResult,zeroflag,selection);
             end
         end
     end
     $finish();
-    $fclose(fd);
 end
 endmodule

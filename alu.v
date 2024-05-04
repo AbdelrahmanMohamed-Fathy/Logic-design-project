@@ -1,10 +1,10 @@
-module alu(
+/*module alu(
     input[2:0] num1,
     input[2:0] num2,
     input[1:0] sel,
     output[4:0] result,
-    output zeroFlag,
-    output divByZeroFlag
+    output reg zeroFlag,
+    output reg divByZeroFlag
 );
 always@(*) begin
     case(sel)
@@ -18,6 +18,7 @@ always@(*) begin
                 .zeroFlag(zeroFlag)
             );
             divByZeroFlag=0;
+            #100
         end
         //remainder
         2'b11:
@@ -34,11 +35,17 @@ always@(*) begin
         //addition and subtraction
         default:
         begin
-            
-
-
+            add_sum addition_subtraction(
+                .num1(num1),
+                .num(num2),
+                .selection(sel[0]),
+                .result(result),
+                .zeroflag(zeroFlag)
+            )
             divByZeroFlag=0;
+            #100
         end
     endcase
 end
 endmodule
+*/
