@@ -37,7 +37,7 @@ always@(*) begin
         begin
             add_sum addition_subtraction(
                 .num1(num1),
-                .num(num2),
+                .num2(num2),
                 .selection(sel[0]),
                 .result(result),
                 .zeroflag(zeroFlag)
