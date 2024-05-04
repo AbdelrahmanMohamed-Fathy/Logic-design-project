@@ -31,7 +31,7 @@ always @(*) begin
         result[2:0]=0;
     end
     if(result[2:0]==3'b000)begin
-        zeroflag=1'b1;
+        zeroflag=1;
     end
     else begin
         zeroflag=0;
