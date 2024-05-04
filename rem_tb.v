@@ -23,7 +23,6 @@ integer i;
 integer j;
 reg [1:0] temp;
 initial begin
-
     for(i=0;i<=3'b111;i=i+1) begin
         numerator=i;
         for(j=0;j<=3'b111;j=j+1)begin
@@ -36,7 +35,7 @@ initial begin
                 $error("[FAIL] numerator = %b , denominator = %b , result = %b , expected result = %b , flag = %b",numerator,denominator,result,temp,divbyzeroflag);
         end
     end
-$finish;
+$finish();
 end
 
 
