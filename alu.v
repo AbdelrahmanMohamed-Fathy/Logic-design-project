@@ -17,6 +17,7 @@ always@(*) begin
                 .product(result),
                 .zeroFlag(zeroFlag)
             );
+            divByZeroFlag=0;
         end
         //remainder
         2'b11:
@@ -34,6 +35,9 @@ always@(*) begin
         default:
         begin
             
+
+
+            divByZeroFlag=0;
         end
     endcase
 end
