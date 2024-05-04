@@ -1,5 +1,3 @@
-
-
 //command to test: vsim rem_tb -c -do "run -all"
 module rem_tb();
 
@@ -8,7 +6,7 @@ module rem_tb();
 
 reg [2:0] numerator;
 reg [2:0] denominator;
-wire [2:0] result;
+wire [4:0] result;
 wire divbyzeroflag;
 
 rem remainder_test
@@ -29,7 +27,7 @@ initial begin
             denominator=j;
             temp = numerator[1:0]%denominator[1:0];
             #100;
-            if ( ( result[1:0] == temp[1:0] ) || ( (denominator == 3'b000 || denominator == 3'b100) && (divbyzeroflag == 1) && (result[2] == numerator[2]) ) )
+            if ( ( result[1:0] == temp[1:0] ) || ( (denominator == 3'b000 || denominator == 3'b100) && (divbyzeroflag == 1) && (result[4] == numerator[2]) ) )
                 $display("[PASS] numerator = %b , denominator = %b , result = %b , flag = %b",numerator,denominator,result,divbyzeroflag);
             else
                 $error("[FAIL] numerator = %b , denominator = %b , result = %b , expected result = %b , flag = %b",numerator,denominator,result,temp,divbyzeroflag);
