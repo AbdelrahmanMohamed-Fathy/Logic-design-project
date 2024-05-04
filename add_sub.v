@@ -1,5 +1,5 @@
 `timescale 1ns/100ps
-module Add (
+module add_sub (
     input [2:0] num1,
     input [2:0] num2,
     input selection,
