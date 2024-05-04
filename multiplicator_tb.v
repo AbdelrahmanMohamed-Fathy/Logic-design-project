@@ -3,12 +3,14 @@ module multi_tb;
 reg[2:0] inputa;
 reg[2:0] inputb;
 wire[4:0] product;
+wire zeroFlag;
 
 
 multi DUT(
     .a(inputa),
     .b(inputb),
-    .product(product)
+    .product(product),
+    .zeroFlag(zeroFlag)
 );
 
 integer i=0;
@@ -30,7 +32,9 @@ initial begin
 
             if(product[3:0]==expPrdct[3:0] && product[4]==expPrdct[4]) $display("Pass: A=%b-B=%b P=%b",inputa,inputb,product);
             else $error ("Fail: A=%b B=%b P=%b exP=%b",inputa,inputb,product,expPrdct);
-
+            if(product[3:0] == 4'b0000 && zeroFlag == 1'b1) $display("Pass Zero Flag: A=%b B=%b",inputa,inputb);
+            else if (product[3:0] == 4'b0000 && zeroFlag ==1'b0) $error("Fail Zero Flag: A=%b B=%b P=%b Z=%b",inputa,inputb,product,zeroFlag);
+            else if (product[3:0] != 4'b0000 && zeroFlag ==1'b1) $error("Fail Zero Flag: A=%b B=%b P=%b Z=%b",inputa,inputb,product,zeroFlag);
         end    
     end
     $finish(); 
