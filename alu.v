@@ -11,7 +11,12 @@ always@(*) begin
         //multiplication
         2'b10:
         begin
-            
+            multi multiplication(
+                .a(num1),
+                .b(num2),
+                .product(result),
+                .zeroFlag(zeroFlag)
+            );
         end
         //remainder
         2'b11:
