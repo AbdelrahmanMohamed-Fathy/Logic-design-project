@@ -19,7 +19,7 @@ always@(*) begin
             2'b01:  begin remainder[0] = denominator[1];                      remainder[1] = 0;                                zero = 0;    end
             2'b10:  begin remainder[0] = 0;                                   remainder[1] = denominator[1] && denominator[0]; zero = 0;    end
             2'b11:  begin remainder[0] = denominator[1] && !denominator[0];   remainder[1] = 0;                                zero = 0;    end
-            default:begin remainder[1:0]=2'b00;                                                                                zero = 1;    end
+            default:begin remainder[0] = 0;                                   remainder[1] = 0;                                zero = 1;    end
         endcase
         remainder[4]=(numerator[2]^denominator[2]);
     end
