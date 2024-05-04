@@ -16,24 +16,30 @@ rem remainder_test
     .remainder(result),
     .divbyzero(divbyzeroflag)
 );
-
+integer file;
 integer i;
 integer j;
 reg [1:0] temp;
 initial begin
+    file = $fopen("rem.txt","w");
     for(i=0;i<=3'b111;i=i+1) begin
         numerator=i;
         for(j=0;j<=3'b111;j=j+1)begin
             denominator=j;
             temp = numerator[1:0]%denominator[1:0];
             #100;
-            if ( ( result[1:0] == temp[1:0] ) || ( (denominator == 3'b000 || denominator == 3'b100) && (divbyzeroflag == 1) && (result[4] == numerator[2]) ) )
+            if ( ( result[1:0] == temp[1:0] ) || ( (denominator == 3'b000 || denominator == 3'b100) && (divbyzeroflag == 1) && (result[4] == numerator[2] ) ) ) begin
                 $display("[PASS] numerator = %b , denominator = %b , result = %b , flag = %b",numerator,denominator,result,divbyzeroflag);
-            else
+                $fdisplay(file,"[PASS] numerator = %b , denominator = %b , result = %b , flag = %b",numerator,denominator,result,divbyzeroflag);
+            end
+            else begin
                 $error("[FAIL] numerator = %b , denominator = %b , result = %b , expected result = %b , flag = %b",numerator,denominator,result,temp,divbyzeroflag);
+                $fdisplay(file,"[FAIL] numerator = %b , denominator = %b , result = %b , expected result = %b , flag = %b",numerator,denominator,result,temp,divbyzeroflag);
+            end
         end
     end
     $finish();
+    $fclose(file);
 end
 
 

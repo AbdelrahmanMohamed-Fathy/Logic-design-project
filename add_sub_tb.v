@@ -15,6 +15,8 @@ add_sub DUT
     .result(result),
     .zeroflag(zeroflag)
 );
+integer addfile;
+integer subfile;
 integer i;
 integer j;
 integer sel;
@@ -22,6 +24,8 @@ integer signed signed_i;
 integer signed signed_j;
 reg [4:0] expectedResult;
 initial begin
+    file = $fopen("add.txt","w");
+    file = $fopen("sub.txt","w");
     for(sel=0;sel<=1;sel=sel+1) begin
         for(i=0;i<=3'b111;i=i+1) begin
             for(j=0;j<=3'b111;j=j+1) begin
@@ -39,13 +43,25 @@ initial begin
                 #100
                 if(expectedResult[4]) expectedResult[3:0] = ~expectedResult[3:0]+1;
                 #100
-                if(result==expectedResult && (zeroflag == !(expectedResult[3:0])))
+                if(result==expectedResult && (zeroflag == !(expectedResult[3:0]))) begin
                     $display("[PASS] num1 = %b , num2 = %b , result = %b , zeroFlag = %b, operation = %b",num1,num2,result,zeroflag,selection);
-                else
+                    if (selection)
+                        $fdisplay(subfile,"[PASS] num1 = %b , num2 = %b , result = %b , zeroFlag = %b",num1,num2,result,zeroflag);
+                    else
+                        $fdisplay(subfile,"[PASS] num1 = %b , num2 = %b , result = %b , zeroFlag = %b",num1,num2,result,zeroflag);
+                end
+                else begin
                     $error("[FAIL] num1 = %b , num2 = %b , result = %b , expected result = %b , zeroFlag = %b, operation = %b",num1,num2,result,expectedResult,zeroflag,selection);
+                    if (selection)
+                        $fdisplay(subfile,"[FAIL] num1 = %b , num2 = %b , result = %b , expected result = %b , zeroFlag = %b",num1,num2,result,expectedResult,zeroflag);
+                    else
+                        $fdisplay(subfile,"[FAIL] num1 = %b , num2 = %b , result = %b , expected result = %b , zeroFlag = %b",num1,num2,result,expectedResult,zeroflag);
+                end
             end
         end
     end
     $finish();
+    $fclose(addfile);
+    $fclose(subfile);
 end
 endmodule
