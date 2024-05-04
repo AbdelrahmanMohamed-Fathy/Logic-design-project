@@ -24,8 +24,8 @@ integer signed signed_i;
 integer signed signed_j;
 reg [4:0] expectedResult;
 initial begin
-    file = $fopen("add.txt","w");
-    file = $fopen("sub.txt","w");
+    addfile = $fopen("add.txt","w");
+    subfile = $fopen("sub.txt","w");
     for(sel=0;sel<=1;sel=sel+1) begin
         for(i=0;i<=3'b111;i=i+1) begin
             for(j=0;j<=3'b111;j=j+1) begin
