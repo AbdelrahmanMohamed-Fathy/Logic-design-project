@@ -17,6 +17,7 @@ integer file;
 integer i=0;
 integer j=0;
 reg [4:0] expPrdct;
+reg expZF;
 
 
 initial begin
@@ -29,26 +30,16 @@ initial begin
 
         expPrdct[3:0] = inputa[1:0]*inputb[1:0];
         expPrdct[4] = inputa[2]^inputb[2];
+        expZF = !(inputa[0]||inputa[1]) || !(inputb[0]||inputb[1]);
 
         #100;
 
-            if(product[4:0]==expPrdct[4:0]) begin
-                $display("[PASS] A=%b-B=%b A*B=%b signed flag=%b",inputa,inputb,product,product[4]);
-                $fdisplay(file,"[PASS] A=%b-B=%b A*B=%b signed flag=%b",inputa,inputb,product,product[4]);
+            if(product[4:0]==expPrdct[4:0] && expZF == zeroFlag) begin
+                $display("[PASS] A=%b-B=%b A*B=%b signed flag=%b zero flag=%b",inputa,inputb,product,product[4],zeroFlag);
+                $fdisplay(file,"[PASS] A=%b-B=%b A*B=%b signed flag=%b zero flag=%b",inputa,inputb,product,product[4],zeroFlag);
             end
-            else $error ("[FAIL] A=%b B=%b A*B=%b signed flag=%b exA*B=%b ",inputa,inputb,product,product[4],expPrdct);
-            if(product[3:0] == 4'b0000 && zeroFlag == 1'b1) begin
-                $display("[PASS] Zero Flag: A=%b B=%b",inputa,inputb);
-                $fdisplay(file,"[PASS] Zero Flag: A=%b B=%b",inputa,inputb);
-            end
-            else if (product[3:0] == 4'b0000 && zeroFlag ==1'b0) begin
-                $error("[FAIL] Zero Flag: A=%b B=%b A*B=%b signed flag=%b zero flag=%b",inputa,inputb,product,product[4],zeroFlag);
-                $fdisplay(file,"[FAIL] Zero Flag: A=%b B=%b A*B=%b signed flag=%b zero flag=%b",inputa,inputb,product,product[4],zeroFlag);
-            end
-            else if (product[3:0] != 4'b0000 && zeroFlag ==1'b1) begin
-                $error("[FAIL] Zero Flag: A=%b B=%b A*B=%b signed flag=%b zero flag=%b",inputa,inputb,product,product[4],zeroFlag);
-                $fdisplay(file,"[FAIL] Zero Flag: A=%b B=%b A*B=%b signed flag=%b zero flag=%b",inputa,inputb,product,product[4],zeroFlag);
-            end
+            else $error ("[FAIL] A=%b B=%b A*B=%b signed flag=%b zero flag=%b exA*B=%b expZF=%b",inputa,inputb,product,product[4],zeroFlag,expPrdct,expZF);
+           
         end    
     end
     $finish();
