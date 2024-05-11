@@ -32,21 +32,21 @@ initial begin
         #100;
 
             if(product[4:0]==expPrdct[4:0]) begin
-                $display("Pass: A=%b-B=%b A*B=%b",inputa,inputb,product);
-                $fdisplay(file,"Pass: A=%b-B=%b A*B=%b",inputa,inputb,product);
+                $display("Pass: A=%b-B=%b A*B=%b signed flag=%b",inputa,inputb,product,product[4]);
+                $fdisplay(file,"Pass: A=%b-B=%b A*B=%b signed flag=%b",inputa,inputb,product,product[4]);
             end
-            else $error ("Fail: A=%b B=%b A*B=%b exA*B=%b",inputa,inputb,product,expPrdct);
+            else $error ("Fail: A=%b B=%b A*B=%b signed flag=%b exA*B=%b ",inputa,inputb,product,product[4],expPrdct);
             if(product[3:0] == 4'b0000 && zeroFlag == 1'b1) begin
                 $display("Pass Zero Flag: A=%b B=%b",inputa,inputb);
                 $fdisplay(file,"Pass Zero Flag: A=%b B=%b",inputa,inputb);
             end
             else if (product[3:0] == 4'b0000 && zeroFlag ==1'b0) begin
-                $error("Fail Zero Flag: A=%b B=%b A*B=%b zero flag=%b",inputa,inputb,product,zeroFlag);
-                $fdisplay(file,"Fail Zero Flag: A=%b B=%b A*B=%b zero flag=%b",inputa,inputb,product,zeroFlag);
+                $error("Fail Zero Flag: A=%b B=%b A*B=%b signed flag=%b zero flag=%b",inputa,inputb,product,product[4],zeroFlag);
+                $fdisplay(file,"Fail Zero Flag: A=%b B=%b A*B=%b signed flag=%b zero flag=%b",inputa,inputb,product,product[4],zeroFlag);
             end
             else if (product[3:0] != 4'b0000 && zeroFlag ==1'b1) begin
-                $error("Fail Zero Flag: A=%b B=%b A*B=%b zero flag=%b",inputa,inputb,product,zeroFlag);
-                $fdisplay(file,"Fail Zero Flag: A=%b B=%b A*B=%b zero flag=%b",inputa,inputb,product,zeroFlag);
+                $error("Fail Zero Flag: A=%b B=%b A*B=%b signed flag=%b zero flag=%b",inputa,inputb,product,product[4],zeroFlag);
+                $fdisplay(file,"Fail Zero Flag: A=%b B=%b A*B=%b signed flag=%b zero flag=%b",inputa,inputb,product,product[4]zeroFlag);
             end
         end    
     end
