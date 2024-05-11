@@ -32,21 +32,21 @@ initial begin
         #100;
 
             if(product[3:0]==expPrdct[3:0] && product[4]==expPrdct[4]) begin
-                $display("Pass: A=%b-B=%b P=%b",inputa,inputb,product);
-                $fdisplay(file,"Pass: A=%b-B=%b P=%b",inputa,inputb,product);
+                $display("Pass: A=%b-B=%b A*B=%b",inputa,inputb,product);
+                $fdisplay(file,"Pass: A=%b-B=%b A*B=%b",inputa,inputb,product);
             end
-            else $error ("Fail: A=%b B=%b P=%b exP=%b",inputa,inputb,product,expPrdct);
+            else $error ("Fail: A=%b B=%b A*B=%b exA*B=%b",inputa,inputb,product,expPrdct);
             if(product[3:0] == 4'b0000 && zeroFlag == 1'b1) begin
                 $display("Pass Zero Flag: A=%b B=%b",inputa,inputb);
                 $fdisplay(file,"Pass Zero Flag: A=%b B=%b",inputa,inputb);
             end
             else if (product[3:0] == 4'b0000 && zeroFlag ==1'b0) begin
-                $error("Fail Zero Flag: A=%b B=%b P=%b Z=%b",inputa,inputb,product,zeroFlag);
-                $fdisplay(file,"Fail Zero Flag: A=%b B=%b P=%b Z=%b",inputa,inputb,product,zeroFlag);
+                $error("Fail Zero Flag: A=%b B=%b A*B=%b zero flag=%b",inputa,inputb,product,zeroFlag);
+                $fdisplay(file,"Fail Zero Flag: A=%b B=%b A*B=%b zero flag=%b",inputa,inputb,product,zeroFlag);
             end
             else if (product[3:0] != 4'b0000 && zeroFlag ==1'b1) begin
-                $error("Fail Zero Flag: A=%b B=%b P=%b Z=%b",inputa,inputb,product,zeroFlag);
-                $fdisplay(file,"Fail Zero Flag: A=%b B=%b P=%b Z=%b",inputa,inputb,product,zeroFlag);
+                $error("Fail Zero Flag: A=%b B=%b A*B=%b zero flag=%b",inputa,inputb,product,zeroFlag);
+                $fdisplay(file,"Fail Zero Flag: A=%b B=%b A*B=%b zero flag=%b",inputa,inputb,product,zeroFlag);
             end
         end    
     end
