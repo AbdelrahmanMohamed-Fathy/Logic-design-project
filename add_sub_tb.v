@@ -43,18 +43,24 @@ initial begin
                 if(expectedResult[4]) expectedResult[3:0] = ~expectedResult[3:0]+1;
                 #100
                 if(result==expectedResult && (zeroflag == !(expectedResult[3:0]))) begin
-                    $display("[PASS] num1 = %b , num2 = %b , result = %b , zeroFlag = %b, operation = %b",num1,num2,result,zeroflag,selection);
-                    if (selection)
-                        $fdisplay(subfile,"[PASS] num1 = %b , num2 = %b , result = %b , zeroFlag = %b, operation = %b",num1,num2,result,zeroflag,selection);
-                    else
-                        $fdisplay(addfile,"[PASS] num1 = %b , num2 = %b , result = %b , zeroFlag = %b, operation = %b",num1,num2,result,zeroflag,selection);
+                    if (selection) begin
+                        $display("[PASS] A = %b , B = %b, A-B = %b, signed flag= %b, zeroFlag = %b",num1,num2,result,result[4],zeroflag);
+                        $fdisplay(subfile,"[PASS] A = %b, B = %b, A-B = %b, signed flag= %b, zeroFlag = %b",num1,num2,result,result[4],zeroflag);
+                    end
+                    else begin
+                        $display("[PASS] A = %b, B = %b, A+B = %b, signed flag= %b, zeroFlag = %b",num1,num2,result,result[4],zeroflag);
+                        $fdisplay(addfile,"[PASS] A = %b , B = %b , A+B = %b , signed flag= %b, zeroFlag = %b",num1,num2,result,result[4],zeroflag);
+                    end
                 end
                 else begin
-                    $error("[FAIL] num1 = %b , num2 = %b , result = %b , expected result = %b , zeroFlag = %b, operation = %b",num1,num2,result,expectedResult,zeroflag,selection);
-                    if (selection)
-                        $fdisplay(subfile,"[FAIL] num1 = %b , num2 = %b , result = %b , expected result = %b , zeroFlag = %b, operation = %b",num1,num2,result,expectedResult,zeroflag,selection);
-                    else
-                        $fdisplay(addfile,"[FAIL] num1 = %b , num2 = %b , result = %b , expected result = %b , zeroFlag = %b, operation = %b",num1,num2,result,expectedResult,zeroflag,selection);
+                    if (selection) begin
+                        $error("[FAIL] A = %b, B = %b, A-B = %b, expected result = %b, signed flag= %b, zeroFlag = %b",num1,num2,result,expectedResult,result[4],zeroflag);
+                        $fdisplay(subfile,"[FAIL] A = %b, B = %b, A-B = %b, expected result = %b, signed flag= %b, zeroFlag = %b",num1,num2,result,expectedResult,result[4],zeroflag);
+                    end
+                    else begin
+                        $error("[FAIL] A = %b, B = %b, A+B = %b, expected result = %b, signed flag= %b, zeroFlag = %b",num1,num2,result,expectedResult,result[4],zeroflag);
+                        $fdisplay(addfile,"[FAIL] A = %b, B = %b, A+B = %b, expected result = %b, signed flag= %b, zeroFlag = %b",num1,num2,result,expectedResult,result[4],zeroflag);
+                    end
                 end
             end
         end

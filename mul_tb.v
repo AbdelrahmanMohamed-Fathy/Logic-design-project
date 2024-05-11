@@ -1,3 +1,4 @@
+//command to test: vsim mul_tb -c -do "run -all"
 module mul_tb;
 reg[2:0] inputa;
 reg[2:0] inputb;
@@ -32,21 +33,21 @@ initial begin
         #100;
 
             if(product[4:0]==expPrdct[4:0]) begin
-                $display("Pass: A=%b-B=%b A*B=%b signed flag=%b",inputa,inputb,product,product[4]);
-                $fdisplay(file,"Pass: A=%b-B=%b A*B=%b signed flag=%b",inputa,inputb,product,product[4]);
+                $display("[PASS] A=%b-B=%b A*B=%b signed flag=%b",inputa,inputb,product,product[4]);
+                $fdisplay(file,"[PASS] A=%b-B=%b A*B=%b signed flag=%b",inputa,inputb,product,product[4]);
             end
-            else $error ("Fail: A=%b B=%b A*B=%b signed flag=%b exA*B=%b ",inputa,inputb,product,product[4],expPrdct);
+            else $error ("[FAIL] A=%b B=%b A*B=%b signed flag=%b exA*B=%b ",inputa,inputb,product,product[4],expPrdct);
             if(product[3:0] == 4'b0000 && zeroFlag == 1'b1) begin
-                $display("Pass Zero Flag: A=%b B=%b",inputa,inputb);
-                $fdisplay(file,"Pass Zero Flag: A=%b B=%b",inputa,inputb);
+                $display("[PASS] Zero Flag: A=%b B=%b",inputa,inputb);
+                $fdisplay(file,"[PASS] Zero Flag: A=%b B=%b",inputa,inputb);
             end
             else if (product[3:0] == 4'b0000 && zeroFlag ==1'b0) begin
-                $error("Fail Zero Flag: A=%b B=%b A*B=%b signed flag=%b zero flag=%b",inputa,inputb,product,product[4],zeroFlag);
-                $fdisplay(file,"Fail Zero Flag: A=%b B=%b A*B=%b signed flag=%b zero flag=%b",inputa,inputb,product,product[4],zeroFlag);
+                $error("[FAIL] Zero Flag: A=%b B=%b A*B=%b signed flag=%b zero flag=%b",inputa,inputb,product,product[4],zeroFlag);
+                $fdisplay(file,"[FAIL] Zero Flag: A=%b B=%b A*B=%b signed flag=%b zero flag=%b",inputa,inputb,product,product[4],zeroFlag);
             end
             else if (product[3:0] != 4'b0000 && zeroFlag ==1'b1) begin
-                $error("Fail Zero Flag: A=%b B=%b A*B=%b signed flag=%b zero flag=%b",inputa,inputb,product,product[4],zeroFlag);
-                $fdisplay(file,"Fail Zero Flag: A=%b B=%b A*B=%b signed flag=%b zero flag=%b",inputa,inputb,product,product[4]zeroFlag);
+                $error("[FAIL] Zero Flag: A=%b B=%b A*B=%b signed flag=%b zero flag=%b",inputa,inputb,product,product[4],zeroFlag);
+                $fdisplay(file,"[FAIL] Zero Flag: A=%b B=%b A*B=%b signed flag=%b zero flag=%b",inputa,inputb,product,product[4],zeroFlag);
             end
         end    
     end

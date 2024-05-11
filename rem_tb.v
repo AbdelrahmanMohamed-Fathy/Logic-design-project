@@ -27,12 +27,12 @@ initial begin
             temp = numerator[1:0]%denominator[1:0];
             #100;
             if ( ( result[1:0] == temp[1:0] && zeroFlag == !(temp) ) || ( (denominator == 3'b000 || denominator == 3'b100) && (divbyzeroflag == 1) && (result[4] == numerator[2] ) )) begin
-                $display("[PASS] numerator = %b, denominator = %b, result = %b, zeroFlag = %b, divByZeroFlag = %b",numerator,denominator,result,zeroFlag,divbyzeroflag);
-                $fdisplay(file,"[PASS] numerator = %b, denominator = %b, result = %b, zeroFlag = %b, divByZeroFlag = %b",numerator,denominator,result,zeroFlag,divbyzeroflag);
+                $display("[PASS] A = %b, B = %b, A%%B = %b, signed flag = %b, zeroFlag = %b, divByZeroFlag = %b",numerator,denominator,result,result[4],zeroFlag,divbyzeroflag);
+                $fdisplay(file,"[PASS] A = %b, B = %b, A%%B = %b, zeroFlag = %b, divByZeroFlag = %b",numerator,denominator,result,zeroFlag,divbyzeroflag);
             end
             else begin
-                $error("[FAIL] numerator = %b, denominator = %b, result = %b, expected result = %b, zeroFlag = %b, divByZeroFlag = %b",numerator,denominator,result,temp,zeroFlag,divbyzeroflag);
-                $fdisplay(file,"[FAIL] numerator = %b, denominator = %b, result = %b, expected result = %b, zeroFlag = %b, divByZeroFlag = %b",numerator,denominator,result,temp,zeroFlag,divbyzeroflag);
+                $error("[FAIL] A = %b, B = %b, A%%B = %b, expected result = %b, signed flag= %b, zeroFlag = %b, divByZeroFlag = %b",numerator,denominator,result,temp,result[4],zeroFlag,divbyzeroflag);
+                $fdisplay(file,"[FAIL] A = %b, B = %b, A%%B = %b, expected result = %b, signed flag= %b, zeroFlag = %b, divByZeroFlag = %b",numerator,denominator,result,temp,result[4],zeroFlag,divbyzeroflag);
             end
         end
     end
