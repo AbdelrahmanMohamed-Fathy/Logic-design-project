@@ -31,7 +31,7 @@ initial begin
 
         #100;
 
-            if(product[3:0]==expPrdct[3:0] && product[4]==expPrdct[4]) begin
+            if(product[4:0]==expPrdct[4:0]) begin
                 $display("Pass: A=%b-B=%b A*B=%b",inputa,inputb,product);
                 $fdisplay(file,"Pass: A=%b-B=%b A*B=%b",inputa,inputb,product);
             end
